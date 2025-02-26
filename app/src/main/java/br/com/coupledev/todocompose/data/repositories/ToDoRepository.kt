@@ -35,3 +35,4 @@ class ToDoRepository @Inject constructor(private val toDoDao: ToDoDao) {
         return toDoDao.searchDatabase(searchQuery = searchQuery)
     }
 }
+//todo: seguir na aula 18
