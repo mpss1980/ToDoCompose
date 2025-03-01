@@ -1,6 +1,6 @@
-package br.com.coupledev.todocompose.util
+package br.com.coupledev.todocompose.ui.actions
 
-enum class Action {
+enum class ToDoAction {
     ADD,
     UPDATE,
     DELETE,

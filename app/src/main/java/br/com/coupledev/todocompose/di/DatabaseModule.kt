@@ -2,8 +2,8 @@ package br.com.coupledev.todocompose.di
 
 import android.content.Context
 import androidx.room.Room
+import br.com.coupledev.todocompose.data.DataConstants
 import br.com.coupledev.todocompose.data.ToDoDatabase
-import br.com.coupledev.todocompose.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +22,7 @@ object DatabaseModule {
     ) = Room.databaseBuilder(
         context,
         ToDoDatabase::class.java,
-        Constants.DATABASE_NAME
+        DataConstants.DATABASE_NAME
     ).build()
 
     @Singleton

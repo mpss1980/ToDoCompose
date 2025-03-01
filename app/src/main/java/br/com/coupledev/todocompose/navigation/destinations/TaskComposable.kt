@@ -4,12 +4,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import br.com.coupledev.todocompose.util.Action
-import br.com.coupledev.todocompose.util.Constants.TASK_ARGUMENT_KEY
-import br.com.coupledev.todocompose.util.Constants.TASK_SCREEN
+import br.com.coupledev.todocompose.ui.actions.ToDoAction
+import br.com.coupledev.todocompose.navigation.NavigationConstants.TASK_ARGUMENT_KEY
+import br.com.coupledev.todocompose.navigation.NavigationConstants.TASK_SCREEN
 
 fun NavGraphBuilder.taskComposable(
-    navigateToListScreen: (Action) -> Unit
+    navigateToListScreen: (ToDoAction) -> Unit
 ) {
     composable(
         route = TASK_SCREEN,

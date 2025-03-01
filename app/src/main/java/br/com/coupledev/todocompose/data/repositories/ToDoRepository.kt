@@ -2,11 +2,11 @@ package br.com.coupledev.todocompose.data.repositories
 
 import br.com.coupledev.todocompose.data.ToDoDao
 import br.com.coupledev.todocompose.data.models.ToDoTask
-import dagger.hilt.android.scopes.ViewScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@ViewScoped
+@ViewModelScoped
 class ToDoRepository @Inject constructor(private val toDoDao: ToDoDao) {
 
     val getAllTasks: Flow<List<ToDoTask>> = toDoDao.getAllTasks()
