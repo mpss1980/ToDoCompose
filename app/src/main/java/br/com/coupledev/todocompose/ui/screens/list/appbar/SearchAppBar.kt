@@ -108,11 +108,15 @@ fun SearchAppBarContent(
         trailingIcon = {
             IconButton(
                 onClick = {
-                    when(trailingIconState) {
+                    when (trailingIconState) {
                         TrailingIconState.READY_TO_DELETE -> {
+                            if (text.isEmpty()) {
+                                onCloseClicked()
+                            }
                             onTextChange("")
                             trailingIconState = TrailingIconState.READY_TO_CLOSE
                         }
+
                         TrailingIconState.READY_TO_CLOSE -> {
                             if (text.isNotEmpty()) {
                                 onTextChange("")
