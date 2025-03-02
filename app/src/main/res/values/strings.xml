@@ -7,4 +7,6 @@
     <string name="sort">Sort Tasks</string>
     <string name="deleteAll">Delete All</string>
     <string name="closeIcon">Close Icon</string>
+    <string name="sad_face_icon">Sad Face Icon</string>
+    <string name="no_tasks_found">No Tasks Found</string>
 </resources>
