@@ -12,6 +12,7 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+val PurpleLight = Color(0xFF9B8DCE)
 
 val LightGray = Color(0xFFFCFCFC)
 val MediumGray = Color(0xFF9C9C9C)
@@ -26,6 +27,22 @@ val ColorScheme.contentColor: Color
     @Composable
     get() = if (isSystemInDarkTheme()) LightGray else Color.White
 
+val ColorScheme.secondaryContentColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.White else LightGray
+
 val ColorScheme.backgroundColor: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Color.Black else Purple40
+
+val ColorScheme.secondaryBackgroundColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) DarkGray else PurpleLight
+
+val ColorScheme.taskItemBackground: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) DarkGray else Color.White
+
+val ColorScheme.taskItemTextColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) LightGray else DarkGray

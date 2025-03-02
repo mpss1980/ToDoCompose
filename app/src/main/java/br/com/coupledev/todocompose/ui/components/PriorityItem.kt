@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.coupledev.todocompose.data.models.Priority
 import br.com.coupledev.todocompose.ui.theme.LARGE_PADDING
 import br.com.coupledev.todocompose.ui.theme.PRIORITY_INDICATOR_SIZE
+import br.com.coupledev.todocompose.ui.theme.secondaryContentColor
 
 @Composable
 fun PriorityItem(priority: Priority) {
@@ -30,7 +31,7 @@ fun PriorityItem(priority: Priority) {
             modifier = Modifier.padding(start = LARGE_PADDING),
             text = priority.name.lowercase().capitalize(locale = Locale.current),
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.secondaryContentColor
         )
     }
 }
