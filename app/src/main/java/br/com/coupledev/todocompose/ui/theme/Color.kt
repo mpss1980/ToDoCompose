@@ -17,6 +17,7 @@ val PurpleLight = Color(0xFF9B8DCE)
 val LightGray = Color(0xFFFCFCFC)
 val MediumGray = Color(0xFF9C9C9C)
 val DarkGray = Color(0xFF141414)
+val Gray = Color(0xFF1E222B)
 
 val LowPriorityColor = Color(0xFF00C980)
 val MediumPriorityColor = Color(0xFFFFC114)
@@ -37,7 +38,7 @@ val ColorScheme.backgroundColor: Color
 
 val ColorScheme.secondaryBackgroundColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) DarkGray else PurpleLight
+    get() = if (isSystemInDarkTheme()) Gray else PurpleLight
 
 val ColorScheme.taskItemBackground: Color
     @Composable

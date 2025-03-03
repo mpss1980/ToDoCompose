@@ -139,5 +139,3 @@ private fun TaskItemPreview() {
         navigateToTaskScreen = {}
     )
 }
-
-//todo: seguir na aula 27

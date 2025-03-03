@@ -23,7 +23,6 @@ import br.com.coupledev.todocompose.ui.theme.backgroundColor
 import br.com.coupledev.todocompose.ui.viewmodels.SharedViewModel
 
 @ExperimentalMaterial3Api
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
