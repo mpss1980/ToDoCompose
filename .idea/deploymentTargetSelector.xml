@@ -11,6 +11,9 @@
       <SelectionState runConfigName="ListAppBarPreview - Light">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="PriorityDropDownPreview - Dark">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

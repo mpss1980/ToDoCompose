@@ -14,4 +14,8 @@
     <string name="close_icon">Close Icon</string>
     <string name="delete_task_action">Delete Task Action</string>
     <string name="update_task">Update Task</string>
+    <string name="drop_down_arrow">Drop Down Arrow</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="fields_empty">Fields Empty</string>
 </resources>

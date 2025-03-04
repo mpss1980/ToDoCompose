@@ -31,7 +31,6 @@ fun PriorityItem(priority: Priority) {
             modifier = Modifier.padding(start = LARGE_PADDING),
             text = priority.name.lowercase().capitalize(locale = Locale.current),
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.secondaryContentColor
         )
     }
 }
