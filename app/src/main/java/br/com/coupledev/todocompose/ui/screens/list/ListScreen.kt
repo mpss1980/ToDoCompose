@@ -29,9 +29,12 @@ fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
     sharedViewModel: SharedViewModel,
 ) {
+    val action by sharedViewModel.action
     val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarSate
     val searchTextState: String by sharedViewModel.searchTextState
+
+    sharedViewModel.handleDatabaseAction(action = action)
 
     LaunchedEffect(key1 = true) {
         sharedViewModel.getAllTasks()

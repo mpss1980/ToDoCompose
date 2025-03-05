@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import br.com.coupledev.todocompose.data.models.Priority
 import br.com.coupledev.todocompose.data.models.ToDoTask
 import br.com.coupledev.todocompose.data.repositories.ToDoRepository
+import br.com.coupledev.todocompose.ui.actions.ToDoAction
 import br.com.coupledev.todocompose.ui.states.RequestState
 import br.com.coupledev.todocompose.ui.states.SearchAppBarState
 import br.com.coupledev.todocompose.ui.theme.Constants.MAX_TITLE_LENGTH
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,6 +23,8 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repository: ToDoRepository
 ) : ViewModel() {
+    val action: MutableState<ToDoAction> = mutableStateOf(ToDoAction.NO_ACTION)
+
     val id: MutableState<Int> = mutableIntStateOf(0)
     val title: MutableState<String> = mutableStateOf("")
     val description: MutableState<String> = mutableStateOf("")
@@ -80,5 +84,40 @@ class SharedViewModel @Inject constructor(
 
     fun validateFields(): Boolean {
         return title.value.isNotEmpty() && description.value.isNotEmpty()
+    }
+
+    fun handleDatabaseAction(action: ToDoAction) {
+        when (action) {
+            ToDoAction.ADD -> {
+                addTask()
+            }
+            ToDoAction.UPDATE -> {
+
+            }
+            ToDoAction.DELETE -> {
+
+            }
+            ToDoAction.DELETE_ALL -> {
+
+            }
+            ToDoAction.UNDO -> {
+
+            }
+            ToDoAction.NO_ACTION -> {
+
+            }
+        }
+        this.action.value = ToDoAction.NO_ACTION
+    }
+
+    private fun addTask() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+            repository.addTask(toDoTask)
+        }
     }
 }
