@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import br.com.coupledev.todocompose.data.models.Priority
 import br.com.coupledev.todocompose.data.models.ToDoTask
 import br.com.coupledev.todocompose.ui.states.RequestState
+import br.com.coupledev.todocompose.ui.states.SearchAppBarState
 import br.com.coupledev.todocompose.ui.theme.LARGE_PADDING
 import br.com.coupledev.todocompose.ui.theme.PRIORITY_INDICATOR_SIZE
 import br.com.coupledev.todocompose.ui.theme.TASK_ITEM_ELEVATION
@@ -30,19 +31,43 @@ import br.com.coupledev.todocompose.ui.theme.taskItemTextColor
 @Composable
 fun ListContent(
     modifier: Modifier,
-    tasks: RequestState<List<ToDoTask>>,
+    allTasks: RequestState<List<ToDoTask>>,
+    searchedTasks: RequestState<List<ToDoTask>>,
+    searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit,
 ) {
-    if (tasks !is RequestState.Success) {
-        return
+    val tasks =
+        searchedTasks.takeIf {
+            searchAppBarState == SearchAppBarState.TRIGGERED
+                    && it is RequestState.Success
+        }
+            ?.let { (it as RequestState.Success).data }
+            ?: allTasks.takeIf { it is RequestState.Success }
+                ?.let { (it as RequestState.Success).data }
+
+    if (tasks == null) {
+       return
     }
 
-    if (tasks.data.isEmpty()) {
+    HandleListContent(
+        modifier = modifier,
+        tasks = tasks,
+        navigateToTaskScreen = navigateToTaskScreen
+    )
+}
+
+@Composable
+fun HandleListContent(
+    modifier: Modifier,
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks.isEmpty()) {
         EmptyListContent()
     } else {
         DisplayTasks(
             modifier = modifier,
-            tasks = tasks.data,
+            tasks = tasks,
             navigateToTaskScreen = navigateToTaskScreen
         )
     }
