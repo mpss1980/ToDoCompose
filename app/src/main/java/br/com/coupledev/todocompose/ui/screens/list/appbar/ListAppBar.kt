@@ -2,6 +2,7 @@ package br.com.coupledev.todocompose.ui.screens.list.appbar
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import br.com.coupledev.todocompose.ui.actions.ToDoAction
 import br.com.coupledev.todocompose.ui.states.SearchAppBarState
 import br.com.coupledev.todocompose.ui.viewmodels.SharedViewModel
 
@@ -19,7 +20,9 @@ fun ListAppBar(
                     sharedViewModel.searchAppBarSate.value = SearchAppBarState.OPENED
                 },
                 onSortClicked = {},
-                onDeleteClicked = {}
+                onDeleteAllClicked = {
+                    sharedViewModel.action.value = ToDoAction.DELETE_ALL
+                }
             )
         }
 

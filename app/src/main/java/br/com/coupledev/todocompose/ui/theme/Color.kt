@@ -2,6 +2,7 @@ package br.com.coupledev.todocompose.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -35,6 +36,14 @@ val ColorScheme.secondaryContentColor: Color
 val ColorScheme.backgroundColor: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Color.Black else Purple40
+
+val ColorScheme.borderButtonOverlay: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) MediumGray else Purple40
+
+val ColorScheme.overlayBackgroundColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Gray else MaterialTheme.colorScheme.surface
 
 val ColorScheme.secondaryBackgroundColor: Color
     @Composable

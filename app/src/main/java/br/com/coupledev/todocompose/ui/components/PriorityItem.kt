@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.coupledev.todocompose.data.models.Priority
 import br.com.coupledev.todocompose.ui.theme.LARGE_PADDING
 import br.com.coupledev.todocompose.ui.theme.PRIORITY_INDICATOR_SIZE
-import br.com.coupledev.todocompose.ui.theme.secondaryContentColor
 
 @Composable
 fun PriorityItem(priority: Priority) {

@@ -9,6 +9,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -113,8 +114,11 @@ fun DisplaySnackBar(
         if (action != ToDoAction.NO_ACTION) {
             scope.launch {
                 val snackBarResult = snackbarHostState.showSnackbar(
-                    message = "${action.name}: $taskTitle",
+                    message = setSnackBarMessage(
+                        context = context, action = action, taskTitle = taskTitle
+                    ),
                     actionLabel = setActionLabel(context = context, action = action),
+                    duration = SnackbarDuration.Short
                 )
                 undoDeleteTask(
                     action = action,
@@ -126,11 +130,23 @@ fun DisplaySnackBar(
     }
 }
 
+private fun setSnackBarMessage(context: Context, action: ToDoAction, taskTitle: String): String {
+    return when (action) {
+        ToDoAction.DELETE_ALL ->
+            context.getString(R.string.all_tasks_deleted)
+
+        else ->
+            "${action.name}: $taskTitle"
+    }
+}
+
 private fun setActionLabel(context: Context, action: ToDoAction): String {
-    return if (action.name == ToDoAction.DELETE.action) {
-        context.getString(R.string.undo)
-    } else {
-        context.getString(R.string.ok)
+    return when (action.name) {
+        ToDoAction.DELETE.action ->
+            context.getString(R.string.undo)
+
+        else ->
+            context.getString(R.string.ok)
     }
 }
 
