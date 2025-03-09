@@ -42,6 +42,9 @@ fun ListScreen(
     val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarSate
     val searchTextState: String by sharedViewModel.searchTextState
+    val sortState by sharedViewModel.sortState.collectAsState()
+    val lowPriorityTasks by sharedViewModel.lowPriorityTasks.collectAsState()
+    val highPriorityTasks by sharedViewModel.highPriorityTasks.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -55,6 +58,7 @@ fun ListScreen(
 
     LaunchedEffect(key1 = true) {
         sharedViewModel.getAllTasks()
+        sharedViewModel.readSortState()
     }
 
     Scaffold(topBar = {
@@ -67,6 +71,9 @@ fun ListScreen(
         ListContent(
             modifier = Modifier.padding(innerPadding),
             allTasks = allTasks,
+            lowPriorityTasks = lowPriorityTasks,
+            highPriorityTasks = highPriorityTasks,
+            sortState = sortState,
             searchedTasks = searchedTasks,
             searchAppBarState = searchAppBarState,
             navigateToTaskScreen = navigateToTaskScreen,

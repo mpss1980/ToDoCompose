@@ -33,20 +33,28 @@ fun ListContent(
     modifier: Modifier,
     allTasks: RequestState<List<ToDoTask>>,
     searchedTasks: RequestState<List<ToDoTask>>,
+    lowPriorityTasks: List<ToDoTask>,
+    highPriorityTasks: List<ToDoTask>,
+    sortState: RequestState<Priority>,
     searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit,
 ) {
-    val tasks =
-        searchedTasks.takeIf {
-            searchAppBarState == SearchAppBarState.TRIGGERED
-                    && it is RequestState.Success
-        }
-            ?.let { (it as RequestState.Success).data }
-            ?: allTasks.takeIf { it is RequestState.Success }
-                ?.let { (it as RequestState.Success).data }
+    if (sortState !is RequestState.Success) return
+
+    val tasks = when {
+        searchAppBarState == SearchAppBarState.TRIGGERED
+                && searchedTasks is RequestState.Success -> searchedTasks.data
+
+        sortState.data == Priority.NONE
+                && allTasks is RequestState.Success -> allTasks.data
+
+        sortState.data == Priority.LOW -> lowPriorityTasks
+        sortState.data == Priority.HIGH -> highPriorityTasks
+        else -> null
+    }
 
     if (tasks == null) {
-       return
+        return
     }
 
     HandleListContent(
