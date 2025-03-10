@@ -1,4 +1,4 @@
-package br.com.coupledev.todocompose.ui.screens.list
+package br.com.coupledev.todocompose.ui.screens.list.content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

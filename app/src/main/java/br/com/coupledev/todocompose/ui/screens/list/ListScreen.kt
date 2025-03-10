@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import br.com.coupledev.todocompose.R
 import br.com.coupledev.todocompose.ui.actions.ToDoAction
 import br.com.coupledev.todocompose.ui.screens.list.appbar.ListAppBar
+import br.com.coupledev.todocompose.ui.screens.list.content.ListContent
 import br.com.coupledev.todocompose.ui.states.SearchAppBarState
 import br.com.coupledev.todocompose.ui.theme.backgroundColor
 import br.com.coupledev.todocompose.ui.viewmodels.SharedViewModel
