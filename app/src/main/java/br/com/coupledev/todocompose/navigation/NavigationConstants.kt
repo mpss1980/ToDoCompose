@@ -1,6 +1,7 @@
 package br.com.coupledev.todocompose.navigation
 
 object NavigationConstants {
+    const val  SPLASH_SCREEN = "splash"
     const val  LIST_SCREEN = "list/{action}"
     const val  TASK_SCREEN = "task/{taskId}"
 
