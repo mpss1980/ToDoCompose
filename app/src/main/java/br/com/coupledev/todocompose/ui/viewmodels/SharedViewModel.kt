@@ -51,17 +51,9 @@ class SharedViewModel @Inject constructor(
     private val _sortState = MutableStateFlow<RequestState<Priority>>(RequestState.Idle)
     val sortState: StateFlow<RequestState<Priority>> = _sortState
 
-    fun getAllTasks() {
-        _allTasks.value = RequestState.Loading
-        try {
-            viewModelScope.launch {
-                toDoRepository.getAllTasks.collect {
-                    _allTasks.value = RequestState.Success(it)
-                }
-            }
-        } catch (e: Exception) {
-            _allTasks.value = RequestState.Error(e)
-        }
+    init {
+        getAllTasks()
+        readSortState()
     }
 
     fun getSelectedTask(taskId: Int) {
@@ -134,11 +126,10 @@ class SharedViewModel @Inject constructor(
                 addTask()
             }
 
-            ToDoAction.NO_ACTION -> {
+            else -> {
 
             }
         }
-        this.action.value = ToDoAction.NO_ACTION
     }
 
     fun persistSortState(priority: Priority) {
@@ -147,7 +138,20 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun readSortState() {
+    private fun getAllTasks() {
+        _allTasks.value = RequestState.Loading
+        try {
+            viewModelScope.launch {
+                toDoRepository.getAllTasks.collect {
+                    _allTasks.value = RequestState.Success(it)
+                }
+            }
+        } catch (e: Exception) {
+            _allTasks.value = RequestState.Error(e)
+        }
+    }
+
+    private fun readSortState() {
         _sortState.value = RequestState.Loading
         try {
             viewModelScope.launch {

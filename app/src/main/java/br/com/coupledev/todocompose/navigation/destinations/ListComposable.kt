@@ -2,6 +2,7 @@ package br.com.coupledev.todocompose.navigation.destinations
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -23,13 +24,17 @@ fun NavGraphBuilder.listComposable(
             type = NavType.StringType
         })
     ) { navBackStackEntry ->
-        val action = navBackStackEntry.arguments?.getString(LIST_ARGUMENT_KEY).toAction()
+        val actionFromArguments = navBackStackEntry.arguments
+            ?.getString(LIST_ARGUMENT_KEY).toAction()
 
-        LaunchedEffect(key1 = action) {
-            sharedViewModel.action.value = action
+        val action by sharedViewModel.action
+
+        LaunchedEffect(key1 = actionFromArguments) {
+            sharedViewModel.action.value = actionFromArguments
         }
 
         ListScreen(
+            action = action,
             navigateToTaskScreen = navigateToTaskScreen,
             sharedViewModel = sharedViewModel
         )
