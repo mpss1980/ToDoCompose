@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
@@ -26,10 +27,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import br.com.coupledev.todocompose.R
 import br.com.coupledev.todocompose.data.models.Priority
@@ -45,10 +49,14 @@ fun PriorityDropDown(
     val angle: Float by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f
     )
+    var parentSize by remember { mutableStateOf(IntSize.Zero) }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .onGloballyPositioned {
+                parentSize = it.size
+            }
             .height(PRIORITY_DROP_DOWN_HEIGHT)
             .clickable { expanded = true }
             .border(
@@ -59,9 +67,10 @@ fun PriorityDropDown(
             .background(MaterialTheme.colorScheme.background),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Canvas(modifier = Modifier
-            .size(PRIORITY_INDICATOR_SIZE)
-            .weight(1f)
+        Canvas(
+            modifier = Modifier
+                .size(PRIORITY_INDICATOR_SIZE)
+                .weight(1f)
         ) {
             drawCircle(color = priority.color)
         }
@@ -85,33 +94,23 @@ fun PriorityDropDown(
             )
         }
         DropdownMenu(
-            modifier = Modifier.fillMaxWidth(
-                fraction = 0.94f
+            modifier = Modifier.width(
+                with(LocalDensity.current) { parentSize.width.toDp() }
             ),
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            DropdownMenuItem(
-                onClick = {
-                    expanded = false
-                    onPrioritySelected(Priority.LOW)
-                },
-                text = { PriorityItem(priority = Priority.LOW) }
-            )
-            DropdownMenuItem(
-                onClick = {
-                    expanded = false
-                    onPrioritySelected(Priority.MEDIUM)
-                },
-                text = { PriorityItem(priority = Priority.MEDIUM) }
-            )
-            DropdownMenuItem(
-                onClick = {
-                    expanded = false
-                    onPrioritySelected(Priority.HIGH)
-                },
-                text = { PriorityItem(priority = Priority.HIGH) }
-            )
+            Priority.entries.toTypedArray()
+                .filter { priority -> priority != Priority.NONE }
+                .forEach { priority ->
+                    DropdownMenuItem(
+                        onClick = {
+                            expanded = false
+                            onPrioritySelected(priority)
+                        },
+                        text = { PriorityItem(priority = priority) }
+                    )
+                }
         }
     }
 

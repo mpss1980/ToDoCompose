@@ -118,27 +118,17 @@ fun SortAction(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            DropdownMenuItem(
-                text = { PriorityItem(priority = Priority.LOW) },
-                onClick = {
-                    expanded = false
-                    onSortClicked(Priority.LOW)
+            Priority.entries.toTypedArray()
+                .filter { priority -> priority != Priority.MEDIUM }
+                .forEach { priority ->
+                    DropdownMenuItem(
+                        text = { PriorityItem(priority = priority) },
+                        onClick = {
+                            expanded = false
+                            onSortClicked(priority)
+                        }
+                    )
                 }
-            )
-            DropdownMenuItem(
-                text = { PriorityItem(priority = Priority.HIGH) },
-                onClick = {
-                    expanded = false
-                    onSortClicked(Priority.HIGH)
-                }
-            )
-            DropdownMenuItem(
-                text = { PriorityItem(priority = Priority.NONE) },
-                onClick = {
-                    expanded = false
-                    onSortClicked(Priority.NONE)
-                }
-            )
         }
     }
 }

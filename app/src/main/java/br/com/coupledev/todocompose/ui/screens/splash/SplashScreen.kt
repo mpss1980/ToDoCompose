@@ -24,6 +24,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import br.com.coupledev.todocompose.R
 import br.com.coupledev.todocompose.ui.theme.Constants.SPLASH_SCREEN_DELAY
@@ -56,6 +58,17 @@ fun SplashScreen(
         navigateToListScreen()
     }
 
+    Splash(
+        offset = offsetState,
+        alpha = alphaState
+    )
+}
+
+@Composable
+fun Splash(
+    offset: Dp,
+    alpha: Float
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,9 +76,10 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            modifier = Modifier.size(LOGO_HEIGHT)
-                .offset(y = offsetState)
-                .alpha(alpha = alphaState),
+            modifier = Modifier
+                .size(LOGO_HEIGHT)
+                .offset(y = offset)
+                .alpha(alpha = alpha),
             painter = painterResource(id = getLogo()),
             contentDescription = stringResource(R.string.todo_app_logo)
         )
@@ -84,7 +98,8 @@ fun getLogo(): Int {
 @PreviewLightDark
 @Composable
 private fun SplashScreenPreview() {
-    SplashScreen(
-        navigateToListScreen = {}
+    Splash(
+        offset = 0.dp,
+        alpha = 1f
     )
 }

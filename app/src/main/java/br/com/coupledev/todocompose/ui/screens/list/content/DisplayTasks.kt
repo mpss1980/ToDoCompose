@@ -80,7 +80,7 @@ fun TaskItemSwipeToDismiss(
 ) {
     val dismissState = rememberSwipeToDismissBoxState()
     val isDismissed = dismissState.targetValue == SwipeToDismissBoxValue.EndToStart
-            && dismissState.progress > 0.2f
+            && dismissState.progress > 0.5f
     val degrees by animateFloatAsState(
         if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 0f else -45f
     )

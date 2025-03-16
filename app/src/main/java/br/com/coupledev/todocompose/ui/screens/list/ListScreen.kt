@@ -41,8 +41,8 @@ fun ListScreen(
 ) {
     val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
-    val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarSate
-    val searchTextState: String by sharedViewModel.searchTextState
+    val searchAppBarState: SearchAppBarState = sharedViewModel.searchAppBarSate
+    val searchTextState: String = sharedViewModel.searchTextState
     val sortState by sharedViewModel.sortState.collectAsState()
     val lowPriorityTasks by sharedViewModel.lowPriorityTasks.collectAsState()
     val highPriorityTasks by sharedViewModel.highPriorityTasks.collectAsState()
@@ -51,9 +51,9 @@ fun ListScreen(
 
     DisplaySnackBar(
         snackbarHostState = snackbarHostState,
-        onComplete = { sharedViewModel.action.value = it },
-        onUndoClicked = { sharedViewModel.action.value = it },
-        taskTitle = sharedViewModel.title.value,
+        onComplete = { sharedViewModel.updateAction(newAction = it) },
+        onUndoClicked = { sharedViewModel.updateAction(newAction = it) },
+        taskTitle = sharedViewModel.title,
         action = action
     )
 
@@ -77,8 +77,9 @@ fun ListScreen(
             searchedTasks = searchedTasks,
             searchAppBarState = searchAppBarState,
             onSwipeToDelete = { action, task ->
-                sharedViewModel.action.value = action
+                sharedViewModel.updateAction(newAction = action)
                 sharedViewModel.updateTask(selectedTask = task)
+                snackbarHostState.currentSnackbarData?.dismiss()
             },
             navigateToTaskScreen = navigateToTaskScreen,
         )
@@ -153,7 +154,7 @@ private fun setSnackBarMessage(context: Context, action: ToDoAction, taskTitle: 
 
 private fun setActionLabel(context: Context, action: ToDoAction): String {
     return when (action.name) {
-        ToDoAction.DELETE.action ->
+        ToDoAction.DELETE.toString() ->
             context.getString(R.string.undo)
 
         else ->
