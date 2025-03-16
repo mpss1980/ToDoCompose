@@ -9,7 +9,7 @@ import br.com.coupledev.todocompose.navigation.NavigationConstants.SPLASH_SCREEN
 import br.com.coupledev.todocompose.navigation.destinations.listComposable
 import br.com.coupledev.todocompose.navigation.destinations.taskComposable
 import br.com.coupledev.todocompose.ui.viewmodels.SharedViewModel
-import splashComposable
+import br.com.coupledev.todocompose.navigation.destinations.splashComposable
 
 @ExperimentalMaterial3Api
 @Composable

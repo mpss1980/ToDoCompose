@@ -1,3 +1,5 @@
+package br.com.coupledev.todocompose.navigation.destinations
+
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideOutVertically
 import androidx.navigation.NavGraphBuilder
