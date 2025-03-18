@@ -131,13 +131,12 @@ fun DisplaySnackBar(
                     actionLabel = setActionLabel(context = context, action = action),
                     duration = SnackbarDuration.Short
                 )
-                undoDeleteTask(
-                    action = action,
-                    snackbarResult = snackBarResult,
-                    onUndoClicked = onUndoClicked,
-                )
+                if (snackBarResult == SnackbarResult.ActionPerformed && action == ToDoAction.DELETE) {
+                    onUndoClicked(ToDoAction.UNDO)
+                } else if (snackBarResult == SnackbarResult.Dismissed || action == ToDoAction.DELETE) {
+                    onComplete(ToDoAction.NO_ACTION)
+                }
             }
-            onComplete(ToDoAction.NO_ACTION)
         }
     }
 }
@@ -159,13 +158,5 @@ private fun setActionLabel(context: Context, action: ToDoAction): String {
 
         else ->
             context.getString(R.string.ok)
-    }
-}
-
-private fun undoDeleteTask(
-    action: ToDoAction, snackbarResult: SnackbarResult, onUndoClicked: (action: ToDoAction) -> Unit
-) {
-    if (snackbarResult == SnackbarResult.ActionPerformed && action == ToDoAction.DELETE) {
-        onUndoClicked(ToDoAction.UNDO)
     }
 }
